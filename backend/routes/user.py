@@ -58,6 +58,7 @@ def get_profile(db: Session = Depends(get_db)):
         "streak_days": user.streak_days,
         "active_days_total": user.active_days_total,
         "evolution_state": user.evolution_state,
+        "weight_initial": user.weight_initial,
         "weight_current": user.weight_current,
         "weight_goal": user.weight_goal,
         "height_cm": user.height_cm,
@@ -107,3 +108,34 @@ def get_weight_history(db: Session = Depends(get_db)):
         {"date": str(log.logged_date), "weight_kg": log.weight_kg}
         for log in logs
     ]
+
+@router.put("/profile")
+def update_profile(
+    weight_initial: float = None,
+    weight_current: float = None,
+    weight_goal: float = None,
+    height_cm: int = None,
+    db: Session = Depends(get_db)
+):
+    user = db.query(models.User).filter(models.User.id == 1).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    if weight_current and (weight_current < 40 or weight_current > 200):
+        raise HTTPException(status_code=400, detail="Peso fuera de rango válido")
+    if weight_goal and (weight_goal < 40 or weight_goal > 200):
+        raise HTTPException(status_code=400, detail="Peso meta fuera de rango válido")
+    if height_cm and (height_cm < 100 or height_cm > 250):
+        raise HTTPException(status_code=400, detail="Estatura fuera de rango válido")
+
+    if weight_initial is not None:
+        user.weight_initial = weight_initial
+    if weight_current is not None:
+        user.weight_current = weight_current
+    if weight_goal is not None:
+        user.weight_goal = weight_goal
+    if height_cm is not None:
+        user.height_cm = height_cm
+
+    db.commit()
+    return {"message": "Perfil actualizado correctamente"}

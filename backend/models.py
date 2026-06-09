@@ -13,6 +13,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, default="Darkial")
     weight_current = Column(Float, default=105.0)   # kg actuales
+    weight_initial = Column(Float, default=105.0)
     weight_goal = Column(Float, default=85.0)        # kg meta
     height_cm = Column(Integer, default=182)
     level = Column(Integer, default=1)
