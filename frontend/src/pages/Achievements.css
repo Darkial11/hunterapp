@@ -1,0 +1,126 @@
+.achievements {
+  padding: 16px;
+}
+
+.ach-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  color: var(--text-secondary);
+}
+
+.ach-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ach-header h1 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.ach-count {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue-electric);
+  background: rgba(74, 158, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(74, 158, 255, 0.3);
+}
+
+.ach-progress-bar {
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.ach-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue-main), var(--blue-electric));
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+.ach-group {
+  margin-bottom: 20px;
+}
+
+.ach-group-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.ach-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 8px;
+  opacity: 0.45;
+  transition: opacity 0.2s;
+}
+
+.ach-card.unlocked {
+  opacity: 1;
+  border-color: var(--blue-main);
+}
+
+.ach-card.legendary {
+  border-color: #f0c040;
+}
+
+.ach-card.legendary.unlocked {
+  border-color: #f0c040;
+  box-shadow: 0 0 12px rgba(240, 192, 64, 0.3);
+}
+
+.ach-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  width: 40px;
+  text-align: center;
+}
+
+.ach-info {
+  flex: 1;
+}
+
+.ach-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.ach-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.ach-xp {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue-electric);
+}
+
+.ach-check {
+  font-size: 18px;
+  color: var(--blue-electric);
+  font-weight: 900;
+  flex-shrink: 0;
+}
