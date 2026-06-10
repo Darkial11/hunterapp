@@ -56,7 +56,8 @@
 }
 
 .character-image {
-  width: 260px;
+  width: 220px;
+  max-width: 70vw;
   height: auto;
   filter: drop-shadow(0 0 20px rgba(74, 158, 255, 0.4));
 }
