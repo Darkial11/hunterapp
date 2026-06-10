@@ -95,3 +95,71 @@
 .toast.error {
   background: #c0392b;
 }
+
+.config-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.config-card-header .config-card-title {
+  margin-bottom: 0;
+}
+
+.edit-btn {
+  background: transparent;
+  border: 1px solid var(--blue-main);
+  color: var(--blue-electric);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-field label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.edit-field input {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-size: 15px;
+  outline: none;
+}
+
+.edit-field input:focus {
+  border-color: var(--blue-electric);
+}
+
+.save-btn {
+  background: var(--blue-main);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.save-btn:disabled {
+  opacity: 0.5;
+}

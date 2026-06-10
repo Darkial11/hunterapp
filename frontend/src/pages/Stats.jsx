@@ -56,10 +56,10 @@ export default function Stats() {
   if (loading) return <div className="stats-loading">Cargando...</div>
 
   const imc = (profile.weight_current / ((profile.height_cm / 100) ** 2)).toFixed(1)
-  const weightLost = (105 - profile.weight_current).toFixed(1)
+  const weightLost = ((profile.weight_initial ?? 105) - profile.weight_current).toFixed(1)
   const weightToGo = (profile.weight_current - profile.weight_goal).toFixed(1)
   const progressPercent = Math.min(
-    ((105 - profile.weight_current) / (105 - profile.weight_goal)) * 100, 100
+    ((( profile.weight_initial ?? 105) - profile.weight_current) / ((profile.weight_initial ?? 105) - profile.weight_goal)) * 100
   ).toFixed(0)
 
   // Últimos 7 registros para la mini gráfica

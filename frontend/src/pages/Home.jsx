@@ -40,7 +40,7 @@ export default function Home() {
   if (error) return <div className="home-error">{error}</div>
 
   const xpPercent = Math.min((profile.xp_current / profile.xp_needed) * 100, 100)
-  const weightLost = (105 - profile.weight_current).toFixed(1)
+  const weightLost = ((profile.weight_initial ?? 105) - profile.weight_current).toFixed(1)
   const weightToGo = (profile.weight_current - profile.weight_goal).toFixed(1)
 
   return (

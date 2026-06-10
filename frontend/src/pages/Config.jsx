@@ -16,17 +16,58 @@ const EVOLUTION_NAMES = [
 export default function Config() {
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [editing, setEditing] = useState(false)
+  const [saving, setSaving] = useState(false)
   const [toast, setToast] = useState(null)
+  const [form, setForm] = useState({
+    weight_initial: '',
+    weight_current: '',
+    weight_goal: '',
+    height_cm: '',
+  })
 
   useEffect(() => {
-    api.get('/user/profile')
-      .then(res => setProfile(res.data))
-      .finally(() => setLoading(false))
+    fetchProfile()
   }, [])
+
+  async function fetchProfile() {
+    try {
+      const res = await api.get('/user/profile')
+      setProfile(res.data)
+      setForm({
+        weight_initial: res.data.weight_initial ?? 105,
+        weight_current: res.data.weight_current,
+        weight_goal: res.data.weight_goal,
+        height_cm: res.data.height_cm,
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
 
   function showToast(message, type = 'success') {
     setToast({ message, type })
     setTimeout(() => setToast(null), 3000)
+  }
+
+  async function saveProfile() {
+    setSaving(true)
+    try {
+      const params = new URLSearchParams({
+        weight_initial: form.weight_initial,
+        weight_current: form.weight_current,
+        weight_goal: form.weight_goal,
+        height_cm: form.height_cm,
+      })
+      await api.put(`/user/profile?${params.toString()}`)
+      showToast('Perfil actualizado ✓')
+      setEditing(false)
+      fetchProfile()
+    } catch (err) {
+      showToast(err.response?.data?.detail || 'Error al guardar', 'error')
+    } finally {
+      setSaving(false)
+    }
   }
 
   if (loading) return <div className="config-loading">Cargando...</div>
@@ -39,23 +80,85 @@ export default function Config() {
 
       {/* Perfil */}
       <div className="config-card">
-        <div className="config-card-title">👤 Perfil</div>
-        <div className="config-row">
-          <span className="config-label">Nombre</span>
-          <span className="config-value">{profile.name}</span>
+        <div className="config-card-header">
+          <div className="config-card-title">👤 Perfil</div>
+          <button
+            className="edit-btn"
+            onClick={() => setEditing(!editing)}
+          >
+            {editing ? 'Cancelar' : '✏️ Editar'}
+          </button>
         </div>
-        <div className="config-row">
-          <span className="config-label">Estatura</span>
-          <span className="config-value">{profile.height_cm} cm</span>
-        </div>
-        <div className="config-row">
-          <span className="config-label">Peso inicial</span>
-          <span className="config-value">105 kg</span>
-        </div>
-        <div className="config-row">
-          <span className="config-label">Peso meta</span>
-          <span className="config-value">{profile.weight_goal} kg</span>
-        </div>
+
+        {editing ? (
+          <div className="edit-form">
+            <div className="edit-field">
+              <label>Peso inicial (kg)</label>
+              <input
+                type="number"
+                step="0.1"
+                value={form.weight_initial}
+                onChange={e => setForm({ ...form, weight_initial: e.target.value })}
+              />
+            </div>
+            <div className="edit-field">
+              <label>Peso actual (kg)</label>
+              <input
+                type="number"
+                step="0.1"
+                value={form.weight_current}
+                onChange={e => setForm({ ...form, weight_current: e.target.value })}
+              />
+            </div>
+            <div className="edit-field">
+              <label>Peso meta (kg)</label>
+              <input
+                type="number"
+                step="0.1"
+                value={form.weight_goal}
+                onChange={e => setForm({ ...form, weight_goal: e.target.value })}
+              />
+            </div>
+            <div className="edit-field">
+              <label>Estatura (cm)</label>
+              <input
+                type="number"
+                value={form.height_cm}
+                onChange={e => setForm({ ...form, height_cm: e.target.value })}
+              />
+            </div>
+            <button
+              className="save-btn"
+              onClick={saveProfile}
+              disabled={saving}
+            >
+              {saving ? 'Guardando...' : 'Guardar cambios'}
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="config-row">
+              <span className="config-label">Nombre</span>
+              <span className="config-value">{profile.name}</span>
+            </div>
+            <div className="config-row">
+              <span className="config-label">Estatura</span>
+              <span className="config-value">{profile.height_cm} cm</span>
+            </div>
+            <div className="config-row">
+              <span className="config-label">Peso inicial</span>
+              <span className="config-value">{profile.weight_initial ?? 105} kg</span>
+            </div>
+            <div className="config-row">
+              <span className="config-label">Peso actual</span>
+              <span className="config-value">{profile.weight_current} kg</span>
+            </div>
+            <div className="config-row">
+              <span className="config-label">Peso meta</span>
+              <span className="config-value">{profile.weight_goal} kg</span>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Estado actual */}

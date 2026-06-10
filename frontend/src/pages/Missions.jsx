@@ -45,32 +45,38 @@ export default function Missions() {
     setTimeout(() => setToast(null), 3000)
   }
 
-  async function completeDaily(missionId) {
-    setCompleting(missionId)
-    try {
-      const res = await api.post(`/missions/daily/${missionId}/complete`)
-      const data = res.data
-      showToast(`+${data.xp_earned} XP ${data.perfect_day ? '🎉 ¡Día perfecto! +50 XP bonus' : ''}`)
-      fetchAll()
-    } catch (err) {
-      showToast(err.response?.data?.detail || 'Error al completar misión', 'error')
-    } finally {
-      setCompleting(null)
-    }
-  }
+async function completeDaily(missionId, missionName) {
+  const confirmed = window.confirm(`¿Completaste la misión?\n\n"${missionName}"`)
+  if (!confirmed) return
 
-  async function completeKnowledge(assignmentId) {
-    setCompleting(assignmentId)
-    try {
-      const res = await api.post(`/missions/weekly/knowledge/${assignmentId}/complete`)
-      showToast(`+${res.data.xp_earned} XP — ${res.data.activity}`)
-      fetchAll()
-    } catch (err) {
-      showToast(err.response?.data?.detail || 'Error al completar actividad', 'error')
-    } finally {
-      setCompleting(null)
-    }
+  setCompleting(missionId)
+  try {
+    const res = await api.post(`/missions/daily/${missionId}/complete`)
+    const data = res.data
+    showToast(`+${data.xp_earned} XP ${data.perfect_day ? '🎉 ¡Día perfecto! +50 XP bonus' : ''}`)
+    fetchAll()
+  } catch (err) {
+    showToast(err.response?.data?.detail || 'Error al completar misión', 'error')
+  } finally {
+    setCompleting(null)
   }
+}
+
+async function completeKnowledge(assignmentId, activityName) {
+  const confirmed = window.confirm(`¿Completaste esta actividad?\n\n"${activityName}"`)
+  if (!confirmed) return
+
+  setCompleting(assignmentId)
+  try {
+    const res = await api.post(`/missions/weekly/knowledge/${assignmentId}/complete`)
+    showToast(`+${res.data.xp_earned} XP — ${res.data.activity}`)
+    fetchAll()
+  } catch (err) {
+    showToast(err.response?.data?.detail || 'Error al completar actividad', 'error')
+  } finally {
+    setCompleting(null)
+  }
+}
 
   const nutritionMissions = dailyMissions.filter(m => m.mission_type === 'daily_nutrition')
   const exerciseMissions = dailyMissions.filter(m => m.mission_type === 'daily_exercise')
@@ -119,8 +125,8 @@ export default function Missions() {
               {exerciseMissions.map(m => (
                 <MissionCard
                   key={m.mission_id}
-                  mission={m}
-                  onComplete={() => completeDaily(m.mission_id)}
+                  mission={m}                  
+                  onComplete={() => completeDaily(m.mission_id, m.name)}
                   completing={completing === m.mission_id}
                 />
               ))}
@@ -130,7 +136,7 @@ export default function Missions() {
                 <MissionCard
                   key={m.mission_id}
                   mission={m}
-                  onComplete={() => completeDaily(m.mission_id)}
+                  onComplete={() => completeDaily(m.mission_id, m.name)}
                   completing={completing === m.mission_id}
                 />
               ))}
@@ -146,7 +152,7 @@ export default function Missions() {
                 <KnowledgeCard
                   key={a.assignment_id}
                   activity={a}
-                  onComplete={() => completeKnowledge(a.assignment_id)}
+                  onComplete={() => completeKnowledge(a.assignment_id, a.name)}
                   completing={completing === a.assignment_id}
                 />
               ))}
