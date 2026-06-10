@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import api from '../utils/api'
 
 const DARKIAL_IMAGES = [
-  '/images/nivel_0.png',
-  '/images/nivel_1.png',
-  '/images/nivel_2.png',
-  '/images/nivel_3.png',
-  '/images/nivel_4.png',
-  '/images/nivel_5.png',
-  '/images/nivel_6.png',
-  '/images/nivel_7.png',
+  '/images/Nivel_0.png',
+  '/images/Nivel_1.png',
+  '/images/Nivel_2.png',
+  '/images/Nivel_3.png',
+  '/images/Nivel_4.png',
+  '/images/Nivel_5.png',
+  '/images/Nivel_6.png',
+  '/images/Nivel_7.png',
 ]
 
 const EVOLUTION_NAMES = [
