@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import api from '../utils/api'
+import './Home.css'
 
 const DARKIAL_IMAGES = [
   '/images/Nivel_0.png',
