@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 const DARKIAL_IMAGES = [
   '/images/nivel_0.png',
   '/images/nivel_1.png',
