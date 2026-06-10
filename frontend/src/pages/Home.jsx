@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import api from '../utils/api'
 
 const DARKIAL_IMAGES = [
   '/images/nivel_0.png',
