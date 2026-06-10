@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react'
 import api from '../utils/api'
 import './Home.css'
 
-const DARKIAL_IMAGES = [
-  new URL('../assets/images/nivel_0.png', import.meta.url).href,
-  new URL('../assets/images/nivel_1.png', import.meta.url).href,
-  new URL('../assets/images/nivel_2.png', import.meta.url).href,
-  new URL('../assets/images/nivel_3.png', import.meta.url).href,
-  new URL('../assets/images/nivel_4.png', import.meta.url).href,
-  new URL('../assets/images/nivel_5.png', import.meta.url).href,
-  new URL('../assets/images/nivel_6.png', import.meta.url).href,
-  new URL('../assets/images/nivel_7.png', import.meta.url).href,
-]
+import img0 from '../assets/images/nivel_0.png'
+import img1 from '../assets/images/nivel_1.png'
+import img2 from '../assets/images/nivel_2.png'
+import img3 from '../assets/images/nivel_3.png'
+import img4 from '../assets/images/nivel_4.png'
+import img5 from '../assets/images/nivel_5.png'
+import img6 from '../assets/images/nivel_6.png'
+import img7 from '../assets/images/nivel_7.png'
+
+const DARKIAL_IMAGES = [img0, img1, img2, img3, img4, img5, img6, img7]
 
 const EVOLUTION_NAMES = [
   'Antes del Despertar',
