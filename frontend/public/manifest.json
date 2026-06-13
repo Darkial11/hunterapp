@@ -1,0 +1,17 @@
+{
+  "name": "HunterAPP",
+  "short_name": "Hunter",
+  "description": "App gamificada de fitness RPG",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0c14",
+  "theme_color": "#0a0c14",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
