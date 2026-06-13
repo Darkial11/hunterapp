@@ -53,8 +53,14 @@ def check_and_grant_achievements(user: models.User, db: Session):
                 unlocked = True
         
         elif achievement.achievement_type == "streak":
-            if user.streak_days >= achievement.condition_value:
-                unlocked = True
+            if achievement.condition_value <= 30:
+                # Racha consecutiva
+                if user.streak_days >= achievement.condition_value:
+                    unlocked = True
+            else:
+                # Días activos acumulados
+                if user.active_days_total >= achievement.condition_value:
+                    unlocked = True
         
         elif achievement.achievement_type == "missions":
             if achievement.condition_value == 1:
