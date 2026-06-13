@@ -152,6 +152,8 @@ def complete_daily_mission(mission_id: int, db: Session = Depends(get_db)):
     add_xp_to_user(user, xp_earned, db)
     update_streak(user, db)
 
+    db.flush()
+
     all_today = db.query(models.DailyMission).filter(
         models.DailyMission.user_id == 1,
         models.DailyMission.completed_date == today,
