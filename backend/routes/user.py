@@ -30,6 +30,55 @@ def get_evolution_state(level: int, weight: float, active_days: int) -> int:
         return 1
     return 0
 
+def check_and_grant_achievements(user: models.User, db: Session):
+    """Verifica condiciones de logros y los otorga si se cumplen."""
+    from datetime import date
+    
+    all_achievements = db.query(models.Achievement).all()
+    
+    for achievement in all_achievements:
+        # Verifica si ya fue otorgado
+        already_unlocked = db.query(models.UserAchievement).filter(
+            models.UserAchievement.user_id == user.id,
+            models.UserAchievement.achievement_id == achievement.id
+        ).first()
+        
+        if already_unlocked:
+            continue
+        
+        unlocked = False
+        
+        if achievement.achievement_type == "weight":
+            if user.weight_current <= achievement.condition_value:
+                unlocked = True
+        
+        elif achievement.achievement_type == "streak":
+            if user.streak_days >= achievement.condition_value:
+                unlocked = True
+        
+        elif achievement.achievement_type == "missions":
+            if achievement.condition_value == 1:
+                # Día perfecto — se maneja en missions.py
+                pass
+            else:
+                completed_count = db.query(models.DailyMission).filter(
+                    models.DailyMission.user_id == user.id,
+                    models.DailyMission.completed == True
+                ).count()
+                if completed_count >= achievement.condition_value:
+                    unlocked = True
+        
+        if unlocked:
+            user_achievement = models.UserAchievement(
+                user_id=user.id,
+                achievement_id=achievement.id,
+                unlocked_date=date.today()
+            )
+            db.add(user_achievement)
+            user.xp_current += achievement.xp_reward
+            user.xp_total += achievement.xp_reward
+    
+    db.commit()
 
 @router.get("/profile")
 def get_profile(db: Session = Depends(get_db)):
@@ -94,7 +143,9 @@ def log_weight(weight_kg: float, db: Session = Depends(get_db)):
     user.weight_current = weight_kg
     db.commit()
 
-    return {"message": "Peso registrado", "weight_kg": weight_kg, "date": str(today)}
+    check_and_grant_achievements(user, db)
+
+    return {"message": "Peso registrado", "weight_kg": weight_kg, "date": str(today)}urn {"message": "Peso registrado", "weight_kg": weight_kg, "date": str(today)}
 
 
 @router.get("/weight/history")
@@ -139,3 +190,35 @@ def update_profile(
 
     db.commit()
     return {"message": "Perfil actualizado correctamente"}
+
+@router.get("/achievements")
+def get_achievements(db: Session = Depends(get_db)):
+    """Devuelve el catálogo completo de logros."""
+    achievements = db.query(models.Achievement).all()
+    return [
+        {
+            "id": a.id,
+            "name": a.name,
+            "description": a.description,
+            "achievement_type": a.achievement_type,
+            "condition_value": a.condition_value,
+            "xp_reward": a.xp_reward,
+            "is_legendary": a.is_legendary,
+        }
+        for a in achievements
+    ]
+
+
+@router.get("/achievements/unlocked")
+def get_unlocked_achievements(db: Session = Depends(get_db)):
+    """Devuelve los logros desbloqueados por el usuario."""
+    unlocked = db.query(models.UserAchievement).filter(
+        models.UserAchievement.user_id == 1
+    ).all()
+    return [
+        {
+            "achievement_id": u.achievement_id,
+            "unlocked_date": str(u.unlocked_date),
+        }
+        for u in unlocked
+    ]

@@ -4,6 +4,7 @@ from database import get_db
 import models
 from datetime import date, timedelta
 import random
+from routes.user import check_and_grant_achievements
 
 router = APIRouter(prefix="/missions", tags=["Misiones"])
 
