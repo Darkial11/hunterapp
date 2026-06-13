@@ -175,6 +175,27 @@ def complete_daily_mission(mission_id: int, db: Session = Depends(get_db)):
         user.coins += 20
         db.commit()
 
+        # Otorga logro de día perfecto
+        perfect_achievement = db.query(models.Achievement).filter(
+            models.Achievement.achievement_type == "missions",
+            models.Achievement.condition_value == 1
+        ).first()
+
+        if perfect_achievement:
+            already = db.query(models.UserAchievement).filter(
+                models.UserAchievement.user_id == user.id,
+                models.UserAchievement.achievement_id == perfect_achievement.id
+            ).first()
+            if not already:
+                db.add(models.UserAchievement(
+                    user_id=user.id,
+                    achievement_id=perfect_achievement.id,
+                    unlocked_date=date.today()
+                ))
+                user.xp_current += perfect_achievement.xp_reward
+                user.xp_total += perfect_achievement.xp_reward
+                db.commit()
+
     return {
         "message": "Misión completada",
         "xp_earned": xp_earned,
