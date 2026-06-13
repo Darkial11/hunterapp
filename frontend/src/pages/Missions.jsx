@@ -178,4 +178,59 @@ export default function Missions() {
                   key={a.assignment_id}
                   activity={a}
                   onComplete={() => completeKnowledge(a.assignment_id, a.name)}
-                  completing={completing === a.assignment
+                  completing={completing === a.assignment_id}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  )
+}
+
+function MissionCard({ mission, onComplete, completing }) {
+  return (
+    <div className={`mission-card ${mission.completed ? 'completed' : ''}`}>
+      <div className="mission-info">
+        <div className="mission-name">{mission.name}</div>
+        <div className="mission-desc">{mission.description}</div>
+        <div className="mission-rewards">
+          <span className="xp-badge">+{mission.xp_reward} XP</span>
+          <span className="coin-badge">🪙 {mission.coins_reward}</span>
+        </div>
+      </div>
+      <button
+        className={`complete-btn ${mission.completed ? 'done' : ''}`}
+        onClick={onComplete}
+        disabled={mission.completed || completing}
+      >
+        {mission.completed ? '✓' : completing ? '...' : '○'}
+      </button>
+    </div>
+  )
+}
+
+function KnowledgeCard({ activity, onComplete, completing }) {
+  const color = CATEGORY_COLORS[activity.category] || '#4a9eff'
+  return (
+    <div className={`mission-card ${activity.completed ? 'completed' : ''}`}>
+      <div className="mission-info">
+        <div className="category-tag" style={{ color, borderColor: color }}>
+          {activity.category}
+        </div>
+        <div className="mission-name">{activity.name}</div>
+        <div className="mission-rewards">
+          <span className="xp-badge">+{activity.xp_reward} XP</span>
+        </div>
+      </div>
+      <button
+        className={`complete-btn ${activity.completed ? 'done' : ''}`}
+        onClick={onComplete}
+        disabled={activity.completed || completing}
+      >
+        {activity.completed ? '✓' : completing ? '...' : '○'}
+      </button>
+    </div>
+  )
+}
