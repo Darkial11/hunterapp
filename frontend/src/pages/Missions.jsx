@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import api from '../utils/api'
 import './Missions.css'
 
+const [refreshing, setRefreshing] = useState(false)
+
 const CATEGORY_COLORS = {
   Arte: '#ff6b9d',
   Bienestar: '#51cf66',
@@ -23,6 +25,22 @@ export default function Missions() {
   useEffect(() => {
     fetchAll()
   }, [])
+
+  async function refreshKnowledge() {
+    const confirmed = window.confirm('¿Actualizar actividades de conocimiento? Cuesta 50 🪙 y solo puedes hacerlo una vez por semana.')
+    if (!confirmed) return
+
+    setRefreshing(true)
+    try {
+      await api.post('/missions/weekly/knowledge/refresh')
+      showToast('Actividades actualizadas ✓')
+      fetchAll()
+    } catch (err) {
+      showToast(err.response?.data?.detail || 'Error al actualizar', 'error')
+    } finally {
+      setRefreshing(false)
+    }
+  }
 
   async function fetchAll() {
     setLoading(true)
@@ -145,8 +163,17 @@ async function completeKnowledge(assignmentId, activityName) {
 
           {tab === 'knowledge' && (
             <div className="missions-list">
-              <div className="knowledge-subtitle">
-                4 actividades aleatorias esta semana
+              <div className="knowledge-header">
+                <div className="knowledge-subtitle">
+                  4 actividades aleatorias esta semana
+                </div>
+                <button
+                  className="refresh-btn"
+                  onClick={refreshKnowledge}
+                  disabled={refreshing}
+                >
+                  {refreshing ? '...' : '🔄 Actualizar — 50 🪙'}
+                </button>
               </div>
               {weeklyKnowledge.map(a => (
                 <KnowledgeCard
