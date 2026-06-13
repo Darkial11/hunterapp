@@ -122,6 +122,39 @@ def complete_daily_mission(mission_id: int, db: Session = Depends(get_db)):
 
     user.coins += coins_earned
     add_xp_to_user(user, xp_earned, db)
+    update_streak(user, db)
+
+    def update_streak(user: models.User, db: Session):
+    """Actualiza la racha del usuario."""
+    from datetime import date, timedelta
+    today = date.today()
+    yesterday = today - timedelta(days=1)
+
+    # Verifica si ya contamos hoy
+    already_counted_today = db.query(models.DailyMission).filter(
+        models.DailyMission.user_id == user.id,
+        models.DailyMission.completed_date == today,
+        models.DailyMission.completed == True
+    ).count()
+
+    # Si ya hay más de 1 misión completada hoy, la racha ya fue contada
+    if already_counted_today > 1:
+        return
+
+    # Verifica si hubo actividad ayer
+    activity_yesterday = db.query(models.DailyMission).filter(
+        models.DailyMission.user_id == user.id,
+        models.DailyMission.completed_date == yesterday,
+        models.DailyMission.completed == True
+    ).count()
+
+    if activity_yesterday > 0:
+        user.streak_days += 1
+    else:
+        user.streak_days = 1
+
+    user.active_days_total += 1
+    db.commit()
 
     # Verifica si el día fue perfecto (todas las misiones completadas)
     all_today = db.query(models.DailyMission).filter(
