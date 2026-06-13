@@ -145,7 +145,7 @@ def log_weight(weight_kg: float, db: Session = Depends(get_db)):
 
     check_and_grant_achievements(user, db)
 
-    return {"message": "Peso registrado", "weight_kg": weight_kg, "date": str(today)}urn {"message": "Peso registrado", "weight_kg": weight_kg, "date": str(today)}
+    return {"message": "Peso registrado", "weight_kg": weight_kg, "date": str(today)}
 
 
 @router.get("/weight/history")
