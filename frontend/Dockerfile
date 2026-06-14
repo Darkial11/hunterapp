@@ -1,5 +1,5 @@
 FROM node:22-alpine AS builder
-# rebuild 2026-06-10
+# rebuild 2026-06-14
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
