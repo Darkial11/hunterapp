@@ -78,7 +78,7 @@
 
 .evo-current-badge {
   position: absolute;
-  top: -8px;
+  bottom: -8px;
   left: 50%;
   transform: translateX(-50%);
   background: var(--blue-electric);
