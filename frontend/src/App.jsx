@@ -6,6 +6,7 @@ import Stats from './pages/Stats'
 import Achievements from './pages/Achievements'
 import Rewards from './pages/Rewards'
 import Config from './pages/Config'
+import Evolution from './pages/Evolution'
 import './App.css'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path="/stats" element={<Stats />} />
             <Route path="/achievements" element={<Achievements />} />
             <Route path="/rewards" element={<Rewards />} />
+            <Route path="/evolution" element={<Evolution />} />
             <Route path="/config" element={<Config />} />
           </Routes>
         </div>

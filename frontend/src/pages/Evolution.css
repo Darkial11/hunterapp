@@ -1,0 +1,128 @@
+.evolution {
+  padding: 16px;
+}
+
+.evo-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  color: var(--text-secondary);
+}
+
+.evo-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.evo-current-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.evo-current-label span {
+  color: var(--blue-electric);
+  font-weight: 700;
+}
+
+.evo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.evo-card {
+  display: flex;
+  gap: 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.evo-card.unlocked {
+  opacity: 1;
+}
+
+.evo-card.current {
+  border-color: var(--blue-electric);
+  box-shadow: 0 0 12px rgba(74, 158, 255, 0.3);
+}
+
+.evo-image-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.evo-image {
+  width: 80px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.evo-locked-image {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  background: var(--bg-primary);
+  border-radius: 8px;
+}
+
+.evo-current-badge {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--blue-electric);
+  color: white;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.evo-info {
+  flex: 1;
+}
+
+.evo-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.evo-levels {
+  font-size: 11px;
+  color: var(--blue-electric);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.evo-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.evo-condition {
+  font-size: 11px;
+  color: #f0c040;
+  font-weight: 600;
+}
+
+.evo-done {
+  font-size: 11px;
+  color: var(--blue-electric);
+  font-weight: 700;
+}
