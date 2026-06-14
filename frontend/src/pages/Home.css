@@ -143,4 +143,103 @@
   border-radius: 10px;
   border: 1px solid var(--border);
 }
+.weight-input-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--blue-main);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.weight-input-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.weight-input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.weight-input {
+  flex: 1;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-size: 16px;
+  outline: none;
+}
+
+.weight-input:focus {
+  border-color: var(--blue-electric);
+}
+
+.weight-save-btn {
+  background: var(--blue-main);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.weight-save-btn:disabled {
+  opacity: 0.5;
+}
+
+.weight-progress-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.progress-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+.progress-bar-bg {
+  height: 8px;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue-main), var(--blue-electric));
+  border-radius: 8px;
+  transition: width 0.5s ease;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--blue-main);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 999;
+  max-width: 340px;
+  text-align: center;
+}
+
+.toast.error {
+  background: #c0392b;
+}
 /* v2 */
