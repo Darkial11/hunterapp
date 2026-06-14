@@ -94,7 +94,7 @@ export default function Home() {
       {/* Personaje */}
       <div className="character-section">
         <div className="character-state-name" onClick={() => window.location.href = '/evolution'} style={{ cursor: 'pointer' }}>
-          {EVOLUTION_NAMES[profile.evolution_state]} ›
+          {EVOLUTION_NAMES[profile.evolution_state]}
         </div>
         <img
           src={DARKIAL_IMAGES[profile.evolution_state]}
