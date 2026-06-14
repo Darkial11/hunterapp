@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Missions from './pages/Missions'
 import Stats from './pages/Stats'
 import Achievements from './pages/Achievements'
+import Rewards from './pages/Rewards'
 import Config from './pages/Config'
 import './App.css'
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/missions" element={<Missions />} />
             <Route path="/stats" element={<Stats />} />
             <Route path="/achievements" element={<Achievements />} />
+            <Route path="/rewards" element={<Rewards />} />
             <Route path="/config" element={<Config />} />
           </Routes>
         </div>

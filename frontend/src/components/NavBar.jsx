@@ -4,7 +4,7 @@ import './NavBar.css'
 const navItems = [
   { to: '/home', icon: '⚔️', label: 'Inicio' },
   { to: '/missions', icon: '📋', label: 'Misiones' },
-  { to: '/stats', icon: '📊', label: 'Stats' },
+  { to: '/rewards', icon: '🎁', label: 'Recompensas' },
   { to: '/achievements', icon: '🏆', label: 'Logros' },
   { to: '/config', icon: '⚙️', label: 'Config' },
 ]
