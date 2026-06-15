@@ -246,3 +246,8 @@
   opacity: 0.5;
   cursor: default;
 }
+.routine-tab {
+  background: rgba(74, 158, 255, 0.1);
+  border-color: var(--blue-main);
+  color: var(--blue-electric);
+}

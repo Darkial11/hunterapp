@@ -129,6 +129,12 @@ export default function Missions() {
         >
           Conocimiento
         </button>
+        <button
+          className="tab routine-tab"
+          onClick={() => window.location.href = '/routine'}
+        >
+          Rutina
+        </button>
       </div>
 
       {loading ? (
