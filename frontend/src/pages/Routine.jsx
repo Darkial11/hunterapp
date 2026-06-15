@@ -132,7 +132,7 @@ export default function Routine() {
 
       {/* Nota */}
       <div className="routine-note">
-        Las calorías son aproximadas. Verifica con un nutriólogo si no ves resultados en 3-4 semanas.
+        --------
       </div>
     </div>
   )
